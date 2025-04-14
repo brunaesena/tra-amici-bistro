@@ -1,0 +1,124 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #1e1e1e;
+    color: white;
+    padding: 20px;
+  }
+  
+  .login-brand {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .login-brand h1 {
+    font-size: 2.5rem;
+    color: #f9a825;
+  }
+  
+  .login-card {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .login-card h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #f9a825;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #f9a825;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 0.5rem;
+  }
+  
+  .login-button:hover {
+    background-color: #e69500;
+  }
+  
+  .login-button:disabled {
+    background-color: #6d6d6d;
+    cursor: not-allowed;
+  }
+  
+  .login-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .login-footer a {
+    color: #f9a825;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .login-footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .error-message {
+    color: #ff6b6b;
+    background-color: #3a1e1e;
+    padding: 0.8rem;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 480px) {
+    .login-card {
+      padding: 1.5rem;
+      margin: 0 10px;
+    }
+    
+    .login-brand h1 {
+      font-size: 2rem;
+    }
+    
+    .login-button {
+      padding: 0.7rem;
+    }
+  }

@@ -300,3 +300,13 @@
       margin: 0 1.6rem;
     }
   }
+  @media (max-width: 320px) {
+  .button {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+  }
+}
