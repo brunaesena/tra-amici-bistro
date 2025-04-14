@@ -5,64 +5,30 @@ const DateTimeSelection = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [isReserved, setIsReserved] = useState(false);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
 
   const dates = [
-    {
-      date: '20 de Abril (Sábado)',
-      times: ['12:00', '13:30', '15:00']
-    },
-    {
-      date: '21 de Abril (Domingo)',
-      times: ['11:00', '13:00', '14:30']
-    },
-    {
-      date: '22 de Abril (Segunda)',
-      times: ['18:00', '19:30', '21:00']
-    }
+    { date: '20 de Abril (Sábado)', times: ['12:00', '13:30', '15:00'] },
+    { date: '21 de Abril (Domingo)', times: ['11:00', '13:00', '14:30'] },
+    { date: '22 de Abril (Segunda)', times: ['18:00', '19:30', '21:00'] }
   ];
-
-  const handleDateSelect = (date) => {
-    setSelectedDate(date);
-    setSelectedTime(null); // Reset time when changing date
-  };
-
-  const handleTimeSelect = (time) => {
-    setSelectedTime(time);
-  };
-
-  const handleReservation = () => {
-    if (selectedDate && selectedTime) {
-      console.log(`Reserva confirmada para ${selectedDate} às ${selectedTime}`);
-      setIsReserved(true);
-      
-      // Aqui você pode adicionar a lógica para enviar para o backend
-      // Exemplo: api.reserveTable(selectedDate, selectedTime);
-    }
-  };
 
   if (isReserved) {
     return (
       <div className="datetime-container">
-        <div className="reservation-confirmed">
-          <div className="confirmation-icon">✓</div>
-          <h2>Reserva Confirmada no Tra Amici!</h2>
-          
-          <div className="reservation-details">
-            <p><span>Data:</span> {selectedDate}</p>
-            <p><span>Horário:</span> {selectedTime}</p>
-          </div>
-  
-          <button 
-            className="reserve-button"
-            onClick={() => {
-              setIsReserved(false);
-              setSelectedDate(null);
-              setSelectedTime(null);
-            }}
-          >
-            Fazer Nova Reserva
-          </button>
+        <h2>Reserva Confirmada!</h2>
+        <div className="reservation-info">
+          <p><span>Nome:</span> {name}</p>
+          <p><span>Telefone:</span> {phone}</p>
+          <p><span>Data:</span> {selectedDate} às {selectedTime}</p>
         </div>
+        <button 
+          className="reserve-button" 
+          onClick={() => setIsReserved(false)}
+        >
+          Fazer Nova Reserva
+        </button>
       </div>
     );
   }
@@ -70,22 +36,50 @@ const DateTimeSelection = () => {
   return (
     <div className="datetime-container">
       <h2>Selecione uma data e horário</h2>
+
+      {/* Campos adicionados - Estilo IDÊNTICO ao existente */}
+      <div className="input-field">
+        <label htmlFor="name">Nome Completo</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Digite seu nome"
+          required
+          className="datetime-input"
+        />
+      </div>
+
+      <div className="input-field">
+        <label htmlFor="phone">Telefone</label>
+        <input
+          type="tel"
+          id="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="(00) 00000-0000"
+          required
+          className="datetime-input"
+        />
+      </div>
+
       <div className="cards-wrapper">
         {dates.map((item, index) => (
           <div 
             className={`datetime-card ${selectedDate === item.date ? 'selected' : ''}`} 
             key={index}
-            onClick={() => handleDateSelect(item.date)}
+            onClick={() => setSelectedDate(item.date)}
           >
             <h3>{item.date}</h3>
             <div className="times">
               {item.times.map((time, i) => (
                 <span 
-                  className={`time-slot ${selectedTime === time && selectedDate === item.date ? 'selected' : ''}`}
+                  className={`time-slot ${selectedTime === time ? 'selected' : ''}`}
                   key={i}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleTimeSelect(time);
+                    setSelectedTime(time);
                   }}
                 >
                   {time}
@@ -95,17 +89,14 @@ const DateTimeSelection = () => {
           </div>
         ))}
       </div>
-      
-      {selectedDate && selectedTime && (
-        <div className="reservation-summary">
-          <p>Você selecionou: {selectedDate} às {selectedTime}</p>
-          <button 
-            className="reserve-button" 
-            onClick={handleReservation}
-          >
-            Confirmar Reserva
-          </button>
-        </div>
+
+      {selectedDate && selectedTime && name && phone && (
+        <button 
+          className="reserve-button"
+          onClick={() => setIsReserved(true)}
+        >
+          Confirmar Reserva
+        </button>
       )}
     </div>
   );
