@@ -17,25 +17,25 @@ public class ClienteService {
     @Autowired
     private IClienteRepository repository;
 
-    public ClienteDTO registrarCliente(String nome, String email,  String telefone) {
+    public ClienteDTO registrarCliente(ClienteDTO dto) {
         Cliente cliente = new Cliente();
-        cliente.setNome(nome);
-        cliente.setEmail(email);
-        cliente.setTelefone(telefone);
+        cliente.setNome(dto.getNome());
+        cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
         cliente.setDataCadastro(new Date());
 
         Cliente salvo = repository.save(cliente);
         return toDTO(salvo);
     }
 
-    public ClienteDTO editarPerfil(Long clienteId, String novoNome, String novoEmail, String novoTelefone) {
-        Optional<Cliente> opt = repository.findById(clienteId);
+    public ClienteDTO editarPerfil(ClienteDTO dto) {
+        Optional<Cliente> opt = repository.findById(dto.getId());
         if (opt.isEmpty()) return null;
 
         Cliente cliente = opt.get();
-        cliente.setNome(novoNome);
-        cliente.setEmail(novoEmail);
-        cliente.setTelefone(novoTelefone);
+        cliente.setNome(dto.getNome());
+        cliente.setEmail(dto.getEmail());
+        cliente.setTelefone(dto.getTelefone());
 
         Cliente atualizado = repository.save(cliente);
         return toDTO(atualizado);
@@ -56,6 +56,11 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
+    public ClienteDTO buscarPorId(Long id) {
+        Optional<Cliente> opt = repository.findById(id);
+        return opt.map(this::toDTO).orElse(null);
+    }
+
 //    public String visualizarReservas(Long clienteId) {
 //        return "Reservas do cliente ID: " + clienteId + " (ainda não implementado)";
 //    }
@@ -69,5 +74,22 @@ public class ClienteService {
         dto.setTelefone(cliente.getTelefone());
         dto.setDataCadastro(cliente.getDataCadastro());
         return dto;
+    }
+
+    public void buildCliente(String email, String nome, String telefone) {
+        try {
+            Optional<Cliente> res = repository.findByEmail(email);
+            if(res.isPresent()){
+                return;
+            }
+            Cliente client = new Cliente();
+            client.setEmail(email);
+            client.setNome(nome);
+            client.setTelefone(telefone);
+
+            repository.save(client);
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao salvar dados do cliente");
+        }
     }
 }

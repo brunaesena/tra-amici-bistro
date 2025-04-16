@@ -30,7 +30,8 @@ Clientes podem reservar mesas online, consultar horários disponíveis, editar o
 
 ### Banco de Dados
 - [PostgreSQL](https://www.postgresql.org/)
-- [Prisma ORM](https://www.prisma.io/)
+- [JPA](https://jakarta.ee/specifications/persistence/)
+- [Hibernate](https://hibernate.org/)
 
 ### Autenticação
 - [Firebase Auth](https://firebase.google.com/products/auth)
@@ -45,7 +46,36 @@ Clientes podem reservar mesas online, consultar horários disponíveis, editar o
 
 ## 🚀 Como Executar o Projeto
 
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/sistema-reservas-bistro.git
-   cd sistema-reservas-bistro
+### 🔹 1. Clone o repositório
+
+```bash
+git clone https://github.com/seu-usuario/sistema-reservas-bistro.git
+cd sistema-reservas-bistro
+```
+
+### 🔹 2. Inicie o banco de dados (PostgreSQL via Docker)
+
+```bash
+cd reservas-backend/database-docker
+docker-compose up -d
+```
+
+### 🔹 3. Execute o backend
+
+- Abra o projeto `reservas-backend` em sua IDE (IntelliJ, VSCode, etc).
+- Rode a classe principal do Spring Boot (`@SpringBootApplication`).
+
+### 🔹 4. Execute o frontend
+
+```bash
+cd reservas-frontend
+npm install
+npm start
+```
+
+---
+
+## 📌 Observações
+
+- Certifique-se de que a porta `5432` (PostgreSQL) esteja livre antes de rodar o Docker.
+- Os dados serão armazenados em volume persistente definido no `docker-compose.yml`.

@@ -18,19 +18,14 @@ public class ClienteController {
 
 
     @PostMapping("/registrar")
-    public ResponseEntity<ClienteDTO> registrar(@RequestParam String nome,
-                                                @RequestParam String email,
-                                                @RequestParam String telefone) {
-        ClienteDTO dto = clienteService.registrarCliente(nome, email, telefone);
+    public ResponseEntity<ClienteDTO> registrar(@RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO dto = clienteService.registrarCliente(clienteDTO);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/{id}/editar")
-    public ResponseEntity<ClienteDTO> editar(@PathVariable Long id,
-                                             @RequestParam String nome,
-                                             @RequestParam String email,
-                                             @RequestParam String telefone) {
-        ClienteDTO dto = clienteService.editarPerfil(id, nome, email, telefone);
+    public ResponseEntity<ClienteDTO> editar(@RequestBody ClienteDTO clienteDTO) {
+        ClienteDTO dto = clienteService.editarPerfil(clienteDTO);
         if (dto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(dto);
     }
@@ -43,7 +38,13 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<String> listarTodos() {
-        return ResponseEntity.ok("clienteService.listarTodos()");
+    public ResponseEntity<List<ClienteDTO>> listarTodos() {
+        return ResponseEntity.ok(clienteService.listarTodos());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(clienteService.buscarPorId(id));
+    }
+
 }
