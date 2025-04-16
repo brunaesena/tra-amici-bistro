@@ -1,184 +1,220 @@
-/* src/components/DateTimeSelection.css */
+/* Estilos Base - Mobile First */
 .datetime-container {
-    padding: 2rem;
-    color: #fff;
-    background-color: #1f1f1f;
-    min-height: 100vh;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .cards-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .datetime-card {
-    background: #2c2c2c;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-  }
-  
-  .datetime-card h3 {
-    margin-bottom: 1rem;
-    color: #f6a100;
-  }
-  
-  .times {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-  }
-  
-  .time-slot {
-    background: #f6a100;
-    color: #000;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-weight: bold;
-  }
-  
-  .reserve-button {
-    background-color: #f6a100;
-    border: none;
-    color: #000;
-    font-weight: bold;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  .reserve-button:hover {
-    background-color: #e69500;
-  }
-
-  /* Adicione no final do arquivo existente */
-
-.datetime-card.selected {
-  border: 2px solid #f6a100;
-  background-color: #3a3a3a;
-}
-
-.time-slot.selected {
-  background-color: #ffffff;
-  color: #000;
-  box-shadow: 0 0 0 2px #f6a100;
-}
-
-.reservation-summary {
-  margin-top: 2rem;
-  text-align: center;
   padding: 1rem;
-  background-color: #2c2c2c;
-  border-radius: 8px;
-}
-
-.reservation-summary p {
-  margin-bottom: 1rem;
-}
-  /* No DateTimeSelection.css */
-@media (max-width: 768px) {
-  .date-cards {
-    grid-template-columns: 1fr;
-  }
-  
-  .time-slots {
-    justify-content: center;
-  }
-  
-  .time-slot {
-    min-width: 80px;
-  }
-}
-
-/* Adicione no final do arquivo */
-.reservation-confirmed {
-  text-align: center;
-  padding: 2rem;
-  background: #2c2c2c;
-  border-radius: 12px;
-  max-width: 500px;
+  max-width: 100%;
   margin: 0 auto;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  background: #1f1f1f;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.confirmation-icon {
-  font-size: 4rem;
-  color: #4CAF50;
+h2, h3, h4 {
+  color: #f9a825;
   margin-bottom: 1rem;
 }
 
-.reservation-confirmed h2 {
-  color: #f6a100;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.reservation-details {
-  background: #3a3a3a;
+/* Formulário */
+.reservation-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  background: #2a2a2a;
   padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  text-align: left;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
 }
-
-.reservation-details p {
-  margin: 0.8rem 0;
-  color: #eee;
-}
-
-.reservation-details span {
-  color: #f6a100;
-  display: inline-block;
-  min-width: 80px;
-}
-
-/* ADICIONE APENAS ISSO NO FINAL DO ARQUIVO EXISTENTE */
 
 .input-field {
-  margin-bottom: 1rem;
-  width: 100%;
+  margin-bottom: 0;
 }
 
 .input-field label {
   display: block;
   font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-  color: #fff;
-}
-
-.datetime-input {
-  width: 100%;
-  padding: 0.6rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #1e1e1e;
-  color: white;
-}
-
-.reservation-info {
-  background: #2c2c2c;
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1.5rem 0;
-}
-
-.reservation-info p {
-  margin: 0.5rem 0;
+  margin-bottom: 0.5rem;
   color: #eee;
 }
 
-.reservation-info span {
-  color: #f9a825;
-  margin-right: 0.5rem;
+.input-field input,
+.input-field select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s;
 }
 
+.input-field input:focus,
+.input-field select:focus {
+  outline: none;
+  border-color: #f9a825;
+  box-shadow: 0 0 0 2px rgba(249, 168, 37, 0.2);
+}
+
+.people-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f9a825'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1rem;
+}
+
+/* Disponibilidade */
+.availability-section {
+  margin-bottom: 2rem;
+}
+
+.date-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.date-card {
+  background: #2c2c2c;
+  padding: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid #444;
+}
+
+.date-card.selected {
+  border: 2px solid #f9a825;
+  background: #3a3a3a;
+}
+
+.time-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.time-slot {
+  background: #444;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.time-slot.selected {
+  background: #f9a825;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Confirmação */
+.reservation-confirmed {
+  text-align: center;
+  background: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.reservation-details {
+  background: #1e1e1e;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.reservation-details p {
+  margin: 0.8rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #eee;
+}
+
+.reservation-details strong {
+  color: #f9a825;
+}
+
+/* Botão */
+.reserve-button {
+  width: 100%;
+  padding: 1rem;
+  background: #f9a825;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.reserve-button:hover {
+  background: #e69500;
+}
+
+.reserve-button:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+/* Responsivo - Tablet */
+@media (min-width: 600px) {
+  .datetime-container {
+    padding: 1.5rem;
+  }
+
+  .reservation-form {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .input-field:last-child {
+    grid-column: span 2;
+  }
+
+  .date-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Responsivo - Desktop */
+@media (min-width: 900px) {
+  .datetime-container {
+    max-width: 900px;
+    padding: 2rem;
+  }
+
+  .reservation-form {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .input-field:last-child {
+    grid-column: auto;
+  }
+
+  .date-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Melhorias para telas pequenas */
+@media (max-width: 400px) {
+  .datetime-container {
+    padding: 0.8rem;
+  }
+
+  .input-field input,
+  .input-field select {
+    padding: 0.7rem;
+  }
+
+  .reservation-details p {
+    font-size: 0.9rem;
+  }
+}
