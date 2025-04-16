@@ -1,7 +1,6 @@
 package com.traamici.reservas_backend.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Target;
 
 import java.util.Date;
 
@@ -11,11 +10,16 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "serial")
     private Long id;
+
     private String nome;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String telefone;
+
     private Date dataCadastro;
 
     public Long getId() {
