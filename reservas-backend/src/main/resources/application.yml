@@ -12,6 +12,8 @@ spring:
     password: 123
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
+    hibernate:
+      ddl-auto: validate
     properties:
       hibernate:
         jdbc:
