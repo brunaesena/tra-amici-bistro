@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './DateTimeSelection.css';
+import axios from 'axios';
+import dayjs from 'dayjs';
 
 const DateTimeSelection = () => {
-  // Estados
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -10,41 +11,68 @@ const DateTimeSelection = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [isReserved, setIsReserved] = useState(false);
+  const [reserva, setReserva] = useState(null);
 
-  // Dados mockados
   const dates = [
     { date: '20/04/2024 (Sábado)', times: ['12:00', '13:30', '15:00'] },
     { date: '21/04/2024 (Domingo)', times: ['11:00', '13:00', '14:30'] }
   ];
 
-  const handleReservation = () => {
+  const handleReservation = async () => {
     if (!name || !email || !phone || !selectedDate || !selectedTime) {
       alert('Preencha todos os campos!');
       return;
     }
-    setIsReserved(true);
+  
+    try {
+      const dateOnly = selectedDate.split(' ')[0]; // ex: "20/04/2024"
+      const [day, month, year] = dateOnly.split('/');
+      const [hour, minute] = selectedTime.split(':');
+  
+      const formattedDateTime = dayjs(`${year}-${month}-${day}T${hour}:${minute}:00`).format('YYYY-MM-DDTHH:mm:ss');
+  
+      const response = await axios.post('http://localhost:8080/reserva', {
+        clienteNome: name,
+        clienteEmail: email,
+        clienteTelefone: phone,
+        quantidadePessoas: people,
+        dataHoraReserva: formattedDateTime
+      });
+  
+      console.log('Reserva feita com sucesso:', response.data);
+      setReserva(response.data);
+      setIsReserved(true);
+    } catch (error) {
+      console.error('Erro ao fazer reserva:', error);
+      alert('Erro ao fazer a reserva. Tente novamente.');
+    }
   };
 
-  if (isReserved) {
+  if (isReserved && reserva) {
     return (
       <div className="datetime-container">
         <div className="reservation-confirmed">
           <h2>✅ Reserva Confirmada!</h2>
           <div className="reservation-details">
-            <p>👤 <strong>{name}</strong></p>
-            <p>📧 <strong>{email}</strong></p>
-            <p>📞 <strong>{phone}</strong></p>
-            <p>👥 <strong>{people} pessoa{people !== 1 ? 's' : ''}</strong></p>
+            <p>👤 <strong>{reserva.clienteNome}</strong></p>
+            <p>📧 <strong>{reserva.clienteEmail}</strong></p>
+            <p>📞 <strong>{reserva.clienteTelefone}</strong></p>
+            <p>👥 <strong>{reserva.quantidadePessoas} pessoa{reserva.quantidadePessoas !== 1 ? 's' : ''}</strong></p>
+            <p>🍽️ Mesa: <strong>{reserva.numeroMesa}</strong></p>
             <p>📅 {selectedDate} às {selectedTime}</p>
+            <p>🟢 Status: <strong>{reserva.statusReserva}</strong></p>
           </div>
           <button 
             className="reserve-button"
             onClick={() => {
               setIsReserved(false);
+              setReserva(null);
               setName('');
               setEmail('');
               setPhone('');
               setPeople(1);
+              setSelectedDate(null);
+              setSelectedTime(null);
             }}
           >
             Nova Reserva
